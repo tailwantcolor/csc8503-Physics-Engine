@@ -1,0 +1,36 @@
+This is a help document.
+
+For Game1, you can select the objects in the world to change their cRestitution to make your ball
+cross from the left side of the floor to the right side. 
+
+The standard way is to select the "JumpPad" and "ForwardCapsule" and press the key "G" to 
+make the gravity on. In principle, you should not control the ball itself by locking it. However, if 
+you want, I didn't make the function disable.
+
+For Game2, DLC, The story is that you are the hero of the coins. And you should collect the other
+coins , maybe your family members or friend? To avoid they are eaten by the enemy, you can use
+the magic floor! 
+
+Magic floor is the cubes in the second layer, under the coins and you can select them to trigger.
+If they are triggered, the magic can not be cancelled. Some magic is good and some is bad. You 
+can try it.
+
+But the conditions to the ends is not very good , so there are some bugs like you finished the end
+ but you do not achieve the success.(maybe try again)
+
+The next content may influence your game experience. If you are sure , continue.  
+
+Magic floor have 4 kinds.
+Freeze floors have large friction. Accelerate floors can accelerate the velocity.
+They are just for the player.
+Jump floors can make the coins get higher and Empty floors will remove the cube.
+They are for all objects.
+
+You will find that if the player has a collision with the coins, they will remove the coins and the score
+become less. However, that means that it's not good for you to collect the coins by yourself.
+But the AI will also collect the coins and make your score lower.
+
+So you should find the way to make the player or the AI fall from the floor before they get the coins.
+And you can protect the score and the coins, Like the empty floors.
+
+https://youtu.be/f4XZaiRieG8

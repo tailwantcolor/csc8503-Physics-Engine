@@ -1,0 +1,29 @@
+﻿  CollisionDetection.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\ps\test\CSC8503\CSC8503Common\CollisionDetection.cpp(586,9): warning C4101: “A_lengthBest”: 未引用的局部变量
+C:\ps\test\CSC8503\CSC8503Common\CollisionDetection.cpp(587,9): warning C4101: “B_lengthBest”: 未引用的局部变量
+C:\ps\test\CSC8503\CSC8503Common\CollisionDetection.cpp(927,31): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+C:\ps\test\CSC8503\CSC8503Common\CollisionDetection.cpp(934,34): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+C:\ps\test\CSC8503\CSC8503Common\CollisionDetection.cpp(941,37): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+  Debug.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  GameObject.cpp
+  GameWorld.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  NavigationGrid.cpp
+  NavigationMesh.cpp
+  PhysicsObject.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  PhysicsSystem.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\ps\test\CSC8503\CSC8503Common\PhysicsSystem.cpp(32,15): warning C4244: “=”: 从“float”转换到“clock_t”，可能丢失数据
+  PositionConstraint.cpp
+  PushdownMachine.cpp
+  PushdownState.cpp
+  QuadTree.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  RenderObject.cpp
+  StateMachine.cpp
+  StateTransition.cpp
+  Transform.cpp
+  CSC8503Common.vcxproj -> C:\ps\test\x64\Release\CSC8503Common.lib

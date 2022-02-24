@@ -1,0 +1,37 @@
+﻿  Assets.cpp
+  Camera.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  GameTimer.cpp
+  Keyboard.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Maths.cpp
+  Matrix2.cpp
+  Matrix3.cpp
+  Matrix4.cpp
+  MeshAnimation.cpp
+  MeshGeometry.cpp
+  MeshMaterial.cpp
+C:\ps\test\Common\MeshMaterial.cpp(48,44): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  Mouse.cpp
+  Plane.cpp
+  Quaternion.cpp
+  RendererBase.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  ShaderBase.cpp
+  SimpleFont.cpp
+  TextureBase.cpp
+  TextureLoader.cpp
+  TextureWriter.cpp
+  正在编译...
+  Vector2.cpp
+  Vector3.cpp
+  Vector4.cpp
+  Win32Keyboard.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Win32Mouse.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Win32Window.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Window.cpp
+C:\ps\test\Common\Keyboard.h(1,1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  Common.vcxproj -> C:\ps\test\x64\Release\Common.lib
