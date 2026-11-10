@@ -112,26 +112,104 @@ class Reader:
             raise FormatError(f"expected magic {magic!r}, found {found!r}")
 
 
+def read_track_table(reader: Reader, header: dict, names: list[str] | None = None) -> list[dict]:
+    """Per-channel key table; used to measure key density on individual joints."""
+    if names is None:
+        names = read_skeleton(reader, header) if not header.get("master_size") else []
+    count = header["channel_count"]
+    animation = reader.u64(24)
+    rows = []
+    frame_formats = {2: "B", 4: "H", 5: "I"}
+    for index in range(count):
+        channel = animation + index * MOT_CHANNEL_SIZE
+        joint_id = reader.u16(channel)
+        transforms = reader.u8(channel + 2)
+        track = reader.u32(channel + 8)
+        for bit in range(3):
+            if not transforms >> bit & 1:
+                continue
+            packed = reader.u32(track)
+            key_count = reader.u32(track + 4)
+            frame_type = (packed >> 20) & 0xF
+            frame_pointer = reader.u32(track + 8)
+            frames = []
+            if key_count == 1 and not frame_pointer:
+                frames = [0]
+            elif key_count and frame_type in frame_formats:
+                frames = list(reader._unpack(f"{key_count}{frame_formats[frame_type]}", frame_pointer))
+            rows.append({
+                "joint_id": joint_id,
+                "joint": names[joint_id] if joint_id < len(names) else None,
+                "transform": TRANSFORM_NAMES[bit],
+                "solver": SOLVERS.get(packed & 0xFFF, f"0x{packed & 0xFFF:X}"),
+                "encoding": (packed >> 12) & 0xFF,
+                "keys": key_count,
+                "first_frame": frames[0] if frames else None,
+                "last_frame": frames[-1] if frames else None,
+                "spacing": round((frames[-1] - frames[0]) / (key_count - 1), 2) if len(frames) > 1 else None,
+            })
+            track += MOT_TRACK_SIZE
+    return rows
+
+
+def read_motion_tracks(path: str, motion_id: int) -> dict:
+    data = open(path, "rb").read()
+    reader = Reader(data)
+    reader.check_magic(4, MOTLIST_MAGIC)
+    count = reader.u32(48)
+    motions = reader.u64(16)
+    rows = reader.u64(24)
+    master_names = None
+    for index in range(count):
+        pointer = reader.u64(motions + index * 8)
+        if not pointer or data[pointer + 4:pointer + 8] != MOT_MAGIC:
+            continue
+        master = Reader(data, pointer)
+        master_header = read_mot_header(master)
+        if not master_header["master_size"]:
+            master_names = read_skeleton(master, master_header)
+            break
+    for index in range(count):
+        row = rows + index * LIST_ROW_SIZE
+        if reader.u32(row + 8) != motion_id:
+            continue
+        pointer = reader.u64(motions + index * 8)
+        if not pointer or data[pointer + 4:pointer + 8] != MOT_MAGIC:
+            raise FormatError(f"motion {motion_id} is not an embedded MOT")
+        mot = Reader(data, pointer)
+        header = read_mot_header(mot)
+        return {"kind": "tracks", "motion_id": motion_id, "name": header["name"],
+                "end_frame": header["end_frame"], "fps": header["fps"],
+                "tracks": read_track_table(mot, header, master_names)}
+    raise FormatError(f"motion {motion_id} is not in this list")
+
+
+def read_mot_header(reader: Reader) -> dict:
+    reader.check_magic(4, MOT_MAGIC)
+    return {
+        "name": reader.utf16z(reader.u64(88)),
+        "master_size": reader.u32(12),
+        "end_frame": reader.f32(96),
+        "joint_count": reader.u16(112),
+        "channel_count": reader.u16(114),
+        "fps": reader.u16(120),
+    }
+
+
 def read_mot(reader: Reader) -> dict:
     """Read the MOT header plus skeleton/channel/track summaries."""
-    reader.check_magic(4, MOT_MAGIC)
-    header = {
+    header = read_mot_header(reader)
+    header.update({
         "version": reader.u32(0),
         "error_flags": reader.u32(8),
-        "master_size": reader.u32(12),
-        "name": reader.utf16z(reader.u64(88)),
-        "end_frame": reader.f32(96),
         "loop_frame": reader.f32(100),
         "raw_start_frame": reader.f32(104),
         "raw_end_frame": reader.f32(108),
-        "joint_count": reader.u16(112),
-        "channel_count": reader.u16(114),
         "sequence_count": reader.u8(116),
         "sync_count": reader.u8(117),
-        "fps": reader.u16(120),
         "property_count": reader.u16(122),
         "attributes": reader.u16(124),
-    }
+    })
     header["joints"] = read_skeleton(reader, header) if not header["master_size"] else []
     header["tracks"] = read_tracks(reader, header)
     return header
@@ -365,10 +443,11 @@ def inventory(root: str) -> dict:
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description="Inspect RE Engine motion containers (read-only).")
-    parser.add_argument("command", choices=("bank", "list", "mot", "tree", "inventory"))
+    parser.add_argument("command", choices=("bank", "list", "mot", "tree", "tracks", "inventory"))
     parser.add_argument("path", help="file or directory to inspect")
     parser.add_argument("--json", action="store_true", help="print JSON instead of text")
     parser.add_argument("--first", type=int, default=5, help="entries to show per list (text mode)")
+    parser.add_argument("--motion", type=int, help="motion id for the tracks command")
     args = parser.parse_args(argv)
 
     if args.command == "bank":
@@ -379,6 +458,10 @@ def main(argv: list[str]) -> int:
         result = read_mot_file(args.path)
     elif args.command == "tree":
         result = read_motlist(args.path)
+    elif args.command == "tracks":
+        if args.motion is None:
+            parser.error("the tracks command needs --motion <id>")
+        result = read_motion_tracks(args.path, args.motion)
     else:
         result = inventory(args.path)
 
@@ -427,6 +510,13 @@ def main(argv: list[str]) -> int:
         print(f"  tracks: {mot['tracks']['count']} tracks, {mot['tracks'].get('keys', 0)} keys")
         if mot["joints"]:
             print(f"  joints: {', '.join(mot['joints'][:12])} ...")
+    elif result["kind"] == "tracks":
+        print(f"{result['name']} (id {result['motion_id']}): {result['end_frame']:.0f} frames, "
+              f"{result['fps']} fps, {len(result['tracks'])} tracks")
+        for row in result["tracks"]:
+            print(f"  {row['joint'] or row['joint_id']:>16} {row['transform']:<11} "
+                  f"keys={row['keys']:>4} frames={row['first_frame']}..{row['last_frame']} "
+                  f"spacing={row['spacing']} enc={row['encoding']}")
     else:
         print(f"{result['root']}: {len(result['motlists'])} motlists, "
               f"{len(result['motbank'])} motbanks, {result['standalone_mot']} standalone mot files")
