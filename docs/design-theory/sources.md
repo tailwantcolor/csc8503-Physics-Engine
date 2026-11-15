@@ -59,6 +59,10 @@
 - ZA/UM 关于 *Disco Elysium* 的公开访谈（技能即叙事）。
 - 上田文人 / Team Ico、小岛秀夫 / Kojima Productions、神谷英树 / Clover Studio 与 PlatinumGames、Sucker Punch 的公开访谈与设计分享（关系机制、系统叙事、核心动词、diegetic UI；`07`）。
 - Game Design Tube 的 *Ludonarrative Harmony* 概念页（<https://gamedesign.tube/concepts/narrative-mechanics/>，C 级二手整理，用于交叉验证 `07` 的四条原则）。
+- Looking Glass / Ion Storm / Arkane 的 immersive sim 公开设计资料与访谈（*System Shock 2*、*Thief*、*Deus Ex*、*Dishonored*、*Prey*：规则一致、多条解法、后果留存；`07` 第 5.3 节）。
+- Giant Sparrow 关于 *What Remains of Edith Finch* 的公开访谈（每段故事一套机制、用空间组织叙事；`07` 第 5.4 节）。
+- U0U Games / GCORES PUBLISHING 的 *S4U：都市朋克2011与爱的重拳* Steam 商店页（键盘驱动的文字冒险、「网络替身」设定；`07` 第 5.4 节）：<https://store.steampowered.com/app/2612700/>。
+- *Immersive sim*，Wikipedia（术语与传统谱系速查，C 级）：<https://en.wikipedia.org/wiki/Immersive_sim>。
 
 ## 4. 游戏案例
 
@@ -107,6 +111,13 @@
 | *Frostpunk* | 2018 | 11 bit studios | 法律与生存互相咬合 |
 | *NieR: Automata* | 2017 | PlatinumGames | 多周目视角、存档牺牲 |
 | *Inscryption* | 2021 | Daniel Mullins Games | 规则变化承担剧情转折 |
+| *System Shock 2* | 1999 | Looking Glass / Irrational Games | 音频日志、路径决定叙事顺序 |
+| *Thief: The Dark Project* | 1998 | Looking Glass | 光/声规则、靠推演解决问题 |
+| *Deus Ex* | 2000 | Ion Storm | 多解路径、选择留下后果 |
+| *Dishonored* | 2012 | Arkane Studios | 混乱度改变世界状态 |
+| *Prey* | 2017 | Arkane Studios | 系统自洽、规则即可信度 |
+| *What Remains of Edith Finch* | 2017 | Giant Sparrow | 每段故事一套机制、空间组织叙事 |
+| *S4U：都市朋克2011与爱的重拳* | 2025 | U0U Games | 键盘替身、沟通媒介即核心动词 |
 
 ## 5. 链接核验记录
 
@@ -115,6 +126,7 @@
 - 200：MDA 论文、*Loops and Arcs*、*The Door Problem*、*Flow in Games*、GDC Vault 关卡设计演讲、Wikipedia 的 Flow / SDT / Kishōtenketsu / MDA / Ludonarrative 条目。
 - 2026-11-15 补充核验：Despain & Ash 的 *Designing for Ludonarrative Harmony* PDF 与 Game Design Tube 的 *Ludonarrative Harmony* 概念页均返回 200；前者作为 `07` 的方法参考，后者作为 C 级交叉验证。
 - 失效/不可稳定访问：*The Chemistry of Game Design* 的原链接返回 404；Jenkins 论文的 MIT 旧地址发生重定向且 HTTPS 证书异常；Hocking 原博客已迁移。以上三条改为「标题引用」。
+- 2026-11-15 补充核验：*S4U：都市朋克2011与爱的重拳* 与 *What Remains of Edith Finch* 的 Steam 商店页、*Immersive sim* 维基条目均返回 200；用于 `07` 第 5.3–5.4 节的案例事实。
 - 书籍条目不依赖链接，按书名/作者可在图书馆或出版社检索。
 
 ## 6. 如何继续补充
